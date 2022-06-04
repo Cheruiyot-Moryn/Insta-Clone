@@ -48,6 +48,11 @@ class Image(models.Model):
     def __str__(self):
         return self.image_name    
 
+ # class Follows
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+  
 # class Comment
 class Comment(models.Model):
     comment = models.TextField()
@@ -60,4 +65,5 @@ class Comment(models.Model):
         self.user
 
     def delete_comment(self):
-        self.delete()             
+        self.delete()   
+
