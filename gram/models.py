@@ -46,4 +46,18 @@ class Image(models.Model):
         self.delete()  
 
     def __str__(self):
-        return self.image_name          
+        return self.image_name    
+
+# class Comment
+class Comment(models.Model):
+    comment = models.TextField()
+    post= models.ForeignKey(Image, on_delete=models.CASCADE)
+    user= models.ForeignKey(Profile, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    def save_comment(self):
+        self.user
+
+    def delete_comment(self):
+        self.delete()             
