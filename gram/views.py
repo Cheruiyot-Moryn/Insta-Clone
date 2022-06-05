@@ -68,3 +68,17 @@ def new_post(request):
     else:
         form = NewPostForm()
     return render (request, 'newPost.html', {"form":form}) 
+
+def search_profile(request): 
+    if 'searchUser' in request.GET and request.GET['searchUser']:
+        name = request.GET.get("searchUser")
+        search_results = Profile.search_profile(name)
+        message = f'name'
+        parameters = {
+            'results': search_results,
+            'message': message
+        }
+        return render(request, 'search.html', parameters)
+    else:
+        message = "You haven't searched for any image category"
+    return render(request, 'search.html', {'message': message})    
