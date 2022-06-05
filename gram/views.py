@@ -54,3 +54,17 @@ def profile_update(request):
         profile_form = UserProfileForm(instance=request.user)
         user_form = UserUpdateForm(instance=request.user)
     return render(request, 'profile_edit.html', {"user_form":user_form,"profile_form": profile_form})
+
+@login_required(login_url='/accounts/login/')
+def new_post(request):
+    profile= Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = NewPostForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit = False)
+            image.profile = request.user.profile
+            image.save()
+            return redirect("home")
+    else:
+        form = NewPostForm()
+    return render (request, 'newPost.html', {"form":form}) 
