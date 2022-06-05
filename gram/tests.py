@@ -16,3 +16,28 @@ class TestProfile(TestCase):
         self.profile_test.save()
         pp = Profile.objects.all()
         self.assertTrue(len(pp) > 0)
+
+# test for model class Image
+class TestImage(TestCase):
+    def setUp(self):
+
+        self.user = User.objects.create_user("testuser", "secret")
+
+        self.new_profile = Profile(picture='test.jpg',bio="this is a test bio",user=self.user)
+        self.new_profile.save()
+
+        self.new_image = Image(image='test.jpg',image_caption="image", profile=self.new_profile)
+
+    def test_instance_true(self):
+        self.new_image.save()
+        self.assertTrue(isinstance(self.new_image, Image))
+
+    def test_save_image_method(self):
+        self.new_image.save_image()
+        images = Image.objects.all()
+        self.assertTrue(len(images) == 1)
+
+    def tearDown(self):
+        Image.objects.all().delete()
+        Profile.objects.all().delete()
+        User.objects.all().delete()        
