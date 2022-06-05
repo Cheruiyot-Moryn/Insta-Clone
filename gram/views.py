@@ -40,3 +40,17 @@ def user_profile(request):
         profile_form = UserProfileForm(instance=request.user)
         # user_form = UserUpdateForm(instance=request.user)
     return render(request, 'profile.html',{ "profile_form": profile_form})    
+
+@login_required(login_url='/accounts/login/')
+def profile_update(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if  profile_form.is_valid():
+            user_form.save(commit=False)
+            profile_form.save()
+            return redirect('profile')
+    else: 
+        profile_form = UserProfileForm(instance=request.user)
+        user_form = UserUpdateForm(instance=request.user)
+    return render(request, 'profile_edit.html', {"user_form":user_form,"profile_form": profile_form})
