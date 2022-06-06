@@ -40,7 +40,7 @@ SECRET_KEY = 'django-insecure-a@t5!e_8b+p@br(&e4u#04(%^fquae*hqc-xz%zn225i+vc0(i
 # SECURITY WARNING: don't run with debug turned on in production!
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG',default=False, cast=bool)
 # development
 if config('MODE')=="dev":
    DATABASES = {
@@ -138,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Nairobi,Kenya'
+TIME_ZONE = 'Africa,Nairobi'
 
 USE_I18N = True
 
