@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 import django_heroku
 import dj_database_url
-from decouple import config,Csv
+from decouple import config, Csv
 
 import cloudinary
 import cloudinary.uploader
@@ -35,12 +35,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a@t5!e_8b+p@br(&e4u#04(%^fquae*hqc-xz%zn225i+vc0(i'
+# SECRET_KEY = 'django-insecure-a@t5!e_8b+p@br(&e4u#04(%^fquae*hqc-xz%zn225i+vc0(i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG',default=False, cast=bool)
+DEBUG = config('DEBUG',default=True, cast=bool)
 # development
 if config('MODE')=="dev":
    DATABASES = {
@@ -77,6 +77,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'gram',
+    'bootstrap3',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -138,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Africa,Nairobi'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
