@@ -1,4 +1,4 @@
-from gram.forms import NewPostForm, SignupForm, UserProfileForm, UserUpdateForm
+from gram.forms import PostForm, SignupForm, UserProfileForm, UserUpdateForm
 from django.http import request
 
 from django.shortcuts import redirect, render
@@ -56,18 +56,18 @@ def profile_update(request):
     return render(request, 'profile_edit.html', {"user_form":user_form,"profile_form": profile_form})
 
 @login_required(login_url='/accounts/login/')
-def new_post(request):
+def post(request):
     profile= Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        form = NewPostForm(request.POST,request.FILES)
+        form = PostForm(request.POST,request.FILES)
         if form.is_valid():
             image = form.save(commit = False)
             image.profile = request.user.profile
             image.save()
             return redirect("home")
     else:
-        form = NewPostForm()
-    return render (request, 'newPost.html', {"form":form}) 
+        form = PostForm()
+    return render (request, 'Post.html', {"form":form}) 
 
 def search_profile(request): 
     if 'searchUser' in request.GET and request.GET['searchUser']:
